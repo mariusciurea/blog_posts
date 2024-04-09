@@ -1,3 +1,4 @@
 dj-env/
 .idea/
 __pychache__/
+blog_posts/blog_posts/__pycache__/

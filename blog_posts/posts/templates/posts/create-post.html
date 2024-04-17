@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>Create a Post here</h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+<!--            {{ form.as_p }}-->
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" name="title">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Post Content</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+{% endblock content %}

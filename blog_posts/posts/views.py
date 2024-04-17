@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Posts
-
+from .forms import PostsForm
 
 # dummy_posts = [
 #     {
@@ -40,6 +40,27 @@ def post(request, pk):
     context = {'post': post}
 
     return render(request, 'posts/posts.html', context)
+
+
+def create_post(request):
+    # print(request.method)
+    # print(request.POST)
+    # form_post = PostsForm(request.POST)
+    # print(form_post)
+    # context = {'form': form_post}
+    context = {}
+    if request.method == 'POST':
+        title = request.POST['title']
+        title = request.POST['title']
+        content = request.POST.get('content')
+        Posts.objects.create(
+            title=title,
+            content=content
+        )
+        return redirect('posts-home')
+
+    return render(request, 'posts/create-post.html', context)
+
 
 def about(request):
     return render(request, 'posts/about.html')

@@ -18,12 +18,25 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'posts-home' %}">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'posts-create-post' %}">Add Post</a>
-            </li>
+
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'posts-about' %}">About</a>
             </li>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'posts-create-post' %}">Add post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'users-profile' %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'users-logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'users-login' %}">Login</a>
+              </li>
+            {% endif %}
 
           </ul>
           <form class="d-flex" role="search">
@@ -33,6 +46,16 @@
         </div>
       </div>
     </nav>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}
 
     {% endblock content %}

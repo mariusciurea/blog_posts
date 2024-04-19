@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" xmlns:p="http://www.w3.org/1999/html">
+        <br>
+        {% if type == 'login' %}
+            <form method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="user" class="form-label">Username</label>
+                <input type="text" class="form-control" id="user" name="username">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <br>
+              <br>
+              <p>
+                  Don't have an account? <a href="{% url 'users-register' %}">Register</a>
+              </p>
+            </form>
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock content %}

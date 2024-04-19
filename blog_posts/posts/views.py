@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Posts
+from django.contrib.auth.decorators import login_required
 from .forms import PostsForm
 
 # dummy_posts = [
@@ -42,6 +43,7 @@ def post(request, pk):
     return render(request, 'posts/posts.html', context)
 
 
+@login_required(login_url='users-login')
 def create_post(request):
     # print(request.method)
     # print(request.POST)
@@ -51,9 +53,10 @@ def create_post(request):
     context = {}
     if request.method == 'POST':
         title = request.POST['title']
-        title = request.POST['title']
         content = request.POST.get('content')
+
         Posts.objects.create(
+            user=request.user,
             title=title,
             content=content
         )
